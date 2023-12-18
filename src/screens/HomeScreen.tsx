@@ -1,17 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import useGetPostsData from '../hooks/useGetPostsData';
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import useGetPosts from '../hooks/useGetPosts'
 
 const HomeScreen = () => {
-  const {data, isLoading} = useGetPostsData();
+  const {data, isLoading, refetch } = useGetPosts()
+
+  console.log('===============data=====================');
+  console.log(JSON.stringify(data, null ,3));
+  console.log('====================================');
 
   return (
     <View>
       <Text>HomeScreen</Text>
     </View>
-  );
-};
+  )
+}
 
-export default HomeScreen;
+export default HomeScreen
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})
