@@ -1,7 +1,7 @@
-import {SafeAreaView, View} from 'react-native';
 import React from 'react';
-import HomeScreen from './src/screens/HomeScreen';
+import {SafeAreaView, View} from 'react-native';
 import {QueryClient, QueryClientProvider} from "react-query"
+import BooksScreen from './src/screens/BooksScreen';
 
 const App = () => {
   const queryClient = new QueryClient()
@@ -10,7 +10,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <SafeAreaView>
         <View>
-          <HomeScreen />
+          <BooksScreen />
         </View>
       </SafeAreaView>
     </QueryClientProvider>
