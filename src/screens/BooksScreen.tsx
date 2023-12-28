@@ -1,5 +1,5 @@
-import {ActivityIndicator, Button, FlatList, Text, View} from 'react-native';
-import React from 'react';
+import {ActivityIndicator, Button, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
+import React, { useState } from 'react';
 import useGetBooks from '../hooks/useGetBooks';
 import useAddBook from '../hooks/usePostBook';
 
@@ -7,11 +7,17 @@ const BooksScreen = () => {
   const {data, isLoading} = useGetBooks();
   const {mutate} = useAddBook()
 
+  const [inputValues, setInputValues] = useState({
+    name_of_book: "",
+    author:"",
+    price: ""
+  })
+
   const onAddBookFN = async() => {
     await mutate({
-        name_of_book: "test 2",
-        author:"author 2",
-        price: 2
+        name_of_book: inputValues.name_of_book,
+        author: inputValues.author,
+        price: inputValues.price
     })
   }
 
@@ -36,10 +42,30 @@ const BooksScreen = () => {
     </View>
   );
 
+
+
   return (
     <View style={{paddingHorizontal: 20, height: '100%'}}>
-        <Button title='test'
+        <Button title='Add New Book From Inputs'
         onPress={onAddBookFN}
+        />
+        <TextInput 
+            placeholder='Name of Book'
+            value={inputValues.name_of_book}
+            onChangeText={txt => setInputValues(s => ({...s, name_of_book: txt}))}
+            style={styles.input}
+        />
+        <TextInput 
+            placeholder='Author Name'
+            value={inputValues.author}
+            onChangeText={txt => setInputValues(s => ({...s, author: txt}))}
+            style={styles.input}
+        />
+        <TextInput 
+            placeholder='Book Price'
+            value={inputValues.price}
+            onChangeText={txt => setInputValues(s => ({...s, price: txt}))}
+            style={styles.input}
         />
       {isLoading ? (
         <View
@@ -63,3 +89,13 @@ const BooksScreen = () => {
 };
 
 export default BooksScreen;
+
+const styles = StyleSheet.create({
+    input:{
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 8,
+      borderColor: "grey",
+      marginBottom: 10
+    }
+})
