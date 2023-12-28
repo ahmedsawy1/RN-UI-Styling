@@ -2,10 +2,12 @@ import {ActivityIndicator, Button, FlatList, StyleSheet, Text, TextInput, View} 
 import React, { useState } from 'react';
 import useGetBooks from '../hooks/useGetBooks';
 import useAddBook from '../hooks/usePostBook';
+import useDeleteBook from '../hooks/useDeleteBook';
 
 const BooksScreen = () => {
   const {data, isLoading} = useGetBooks();
   const {mutate} = useAddBook()
+  const {mutate: deleteBook} = useDeleteBook() 
 
   const [inputValues, setInputValues] = useState({
     name_of_book: "",
@@ -35,10 +37,12 @@ const BooksScreen = () => {
         borderColor: 'grey',
       }}>
       <Text>{item?.id}</Text>
-
       <Text>{item?.name_of_book}</Text>
       <Text>author: {item?.author}</Text>
       <Text>{item?.price} $ </Text>
+      <Button title='delete' onPress={() => {
+        deleteBook(item.id)
+      }}/>
     </View>
   );
 
